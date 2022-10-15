@@ -20,9 +20,9 @@ class Compute:
         ret=""
         first=True
         while (remainder > 0):
-            result=int(remainder/d)
+            result = int(remainder/d)
             ret = ret+str(result)
-            remainder=int(remainder)-int(result*d)
+            remainder = remainder - (result*d)
             if first:
                 if remainder != 0:
                     ret=ret+"."
