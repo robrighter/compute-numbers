@@ -1,6 +1,19 @@
 class Compute:
     
     
+    def determine_if_repeating_fraction(self, numerator, denominator):
+            reduced = self.reduce_fraction(numerator, denominator)
+            d=reduced['denominator']
+            while( ( (d%2) == 0 ) or ( (d%5) == 0 ) ): 
+                if( (d%2) == 0 ):
+                    d=int(d/2)
+                if( (d%5) == 0 ):
+                    d=int(d/5)
+            if( d==1 ):
+                return False
+            else:
+                return True 
+    
     def check_for_repeat(self, ret):
         sp = ret.split(".")
         if len(sp) == 0:
@@ -29,8 +42,9 @@ class Compute:
         return {"numerator":int(n), "denominator":int(d)} 
     
     def divide(self, numerator, denominator):
-        n=int(numerator)
-        d=int(denominator)
+        reduced = self.reduce_fraction(numerator, denominator)
+        n=reduced['numerator']
+        d=reduced['denominator']
         remainder=int(n)
         ret=""
         first=True
