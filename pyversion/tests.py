@@ -22,6 +22,14 @@ class TestComputeMethods(unittest.TestCase):
 		self.assertEqual(c.factorial(5), 120)
 		self.assertEqual(c.factorial(9), 362880)
 
+	def test_reduce_fraction(self):
+		self.assertEqual(c.reduce_fraction(2, 6), {"numerator":1, "denominator":3})
+		self.assertEqual(c.reduce_fraction(1, 5), {"numerator":1, "denominator":5})
+		self.assertEqual(c.reduce_fraction(8, 4), {"numerator":2, "denominator":1})
+		self.assertEqual(c.reduce_fraction(14, 49), {"numerator":2, "denominator":7})
+		self.assertEqual(c.reduce_fraction(8, 24), {"numerator":1, "denominator":3})
+		
+		
 	def test_factorial(self):
 		pass
 		#self.assertEqual(c.e(), "2.7182818284590452353602874713526624977572470936999595749669676277")

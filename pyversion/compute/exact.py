@@ -15,6 +15,19 @@ class Compute:
         else:
             return ""
 
+    def reduce_fraction(self, numerator, denominator):
+        n=int(numerator)
+        d=int(denominator)
+        i=2
+        while( (i<=n) and (i<=d) ):
+            if( (n%i)==0 and (d%i)==0 ):
+                n = (n/i)
+                d = (d/i)
+                i=2
+            else:
+                i=i+1
+        return {"numerator":int(n), "denominator":int(d)} 
+    
     def divide(self, numerator, denominator):
         n=int(numerator)
         d=int(denominator)
