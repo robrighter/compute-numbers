@@ -55,6 +55,7 @@ class Compute:
         remainder=int(n)
         ret=""
         first=True
+        i=0
         while (remainder > 0):
             #print(remainder)
             #print(ret)
@@ -67,9 +68,10 @@ class Compute:
                     ret=ret+"."
                 first=False
             else:
-                repeat = self.check_for_repeat(ret)
-                if repeat != '':
-                    return { 'repeat': True, 'value': ret, 'repeat_value': repeat }
+                if is_repeating['is_repeating']:
+                    i=i+1
+                    if( (is_repeating['max_nonrepeat']+is_repeating['max_repeat']) < i):
+                        return { 'repeat': True, 'value': ret, 'max_nonrepeat': is_repeating['max_nonrepeat'],'max_repeat': is_repeating['max_repeat'] }
             remainder=remainder*10
         return { 'repeat': False, 'value': ret }
 
