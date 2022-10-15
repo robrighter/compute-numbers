@@ -35,7 +35,7 @@ class TestComputeMethods(unittest.TestCase):
 		self.assertEqual(c.determine_if_repeating_fraction(780,288), {"is_repeating": True, "max_nonrepeat": 3, "max_repeat": 23 })
 		self.assertEqual(c.determine_if_repeating_fraction(1,2323), {"is_repeating": True, "max_nonrepeat": 0, "max_repeat": 2322 })	
 		
-	def test_factorial(self):
+	def test_e(self):
 		pass
 		#self.assertEqual(c.e(), "2.7182818284590452353602874713526624977572470936999595749669676277")
 
