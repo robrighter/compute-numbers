@@ -17,19 +17,19 @@ class Compute:
         n=int(numerator)
         d=int(denominator)
         remainder=int(n)
-        result=int(remainder/d)
-        ret = str(result)
-        remainder=int(remainder)-int(result*d)
+        ret=""
         first=True
         while (remainder > 0):
-            if first:
-                ret=ret+"."
-                first=False
-            remainder=remainder*10
             result=int(remainder/d)
             ret = ret+str(result)
             remainder=int(remainder)-int(result*d)
-            repeat = self.check_for_repeat(ret)
-            if repeat != '':
-                return { 'repeat': True, 'value': ret, 'repeat_value': repeat }
+            if first:
+                if remainder != 0:
+                    ret=ret+"."
+                first=False
+            else:
+                repeat = self.check_for_repeat(ret)
+                if repeat != '':
+                    return { 'repeat': True, 'value': ret, 'repeat_value': repeat }
+            remainder=remainder*10
         return { 'repeat': False, 'value': ret }
