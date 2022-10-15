@@ -3,16 +3,22 @@ class Compute:
     
     def determine_if_repeating_fraction(self, numerator, denominator):
             reduced = self.reduce_fraction(numerator, denominator)
-            d=reduced['denominator']
+            d=int(reduced['denominator'])
+            #the maximum numbers before the repeat is the max of the power of 2 vs the power of 5
+            #the maximum period of the repeat is d-1 (https://mathworld.wolfram.com/DecimalPeriod.html)
+            power_of_2=0
+            power_of_5=0
             while( ( (d%2) == 0 ) or ( (d%5) == 0 ) ): 
                 if( (d%2) == 0 ):
                     d=int(d/2)
+                    power_of_2=power_of_2+1
                 if( (d%5) == 0 ):
                     d=int(d/5)
+                    power_of_5=power_of_5+1
             if( d==1 ):
-                return False
+                return {"is_repeating": False }
             else:
-                return True 
+                return {"is_repeating": True, "max_nonrepeat": max(power_of_2,power_of_5), "max_repeat": int(reduced['denominator']-1) } 
     
     def check_for_repeat(self, ret):
         sp = ret.split(".")
@@ -45,6 +51,7 @@ class Compute:
         reduced = self.reduce_fraction(numerator, denominator)
         n=reduced['numerator']
         d=reduced['denominator']
+        is_repeating = self.determine_if_repeating_fraction(n, d)
         remainder=int(n)
         ret=""
         first=True

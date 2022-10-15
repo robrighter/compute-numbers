@@ -30,10 +30,10 @@ class TestComputeMethods(unittest.TestCase):
 		self.assertEqual(c.reduce_fraction(8, 24), {"numerator":1, "denominator":3})
 	
 	def test_determine_if_repeating_fraction(self):
-		self.assertEqual(c.determine_if_repeating_fraction(1,3), True)
-		self.assertEqual(c.determine_if_repeating_fraction(1,4), False)
-		self.assertEqual(c.determine_if_repeating_fraction(780,288), True)
-		self.assertEqual(c.determine_if_repeating_fraction(1,2323), True)	
+		self.assertEqual(c.determine_if_repeating_fraction(1,3), {"is_repeating": True, "max_nonrepeat": 0, "max_repeat": 2 })
+		self.assertEqual(c.determine_if_repeating_fraction(1,4), {"is_repeating": False})
+		self.assertEqual(c.determine_if_repeating_fraction(780,288), {"is_repeating": True, "max_nonrepeat": 3, "max_repeat": 23 })
+		self.assertEqual(c.determine_if_repeating_fraction(1,2323), {"is_repeating": True, "max_nonrepeat": 0, "max_repeat": 2322 })	
 		
 	def test_factorial(self):
 		pass
