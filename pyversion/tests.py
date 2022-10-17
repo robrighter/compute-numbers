@@ -41,6 +41,12 @@ class TestComputeMethods(unittest.TestCase):
 		for i in range(0, len(actual)):
 			self.assertEqual(str(actual[i]), next(gen))
 		gen.close()
+		
+		gen = c.divide_generator(18099969098565397826764800000,6658606584104736522240000000)
+		actual = "2.7182818"
+		for i in range(0, len(actual)):
+			self.assertEqual(str(actual[i]), next(gen))
+		gen.close()
 
 
 	def test_divide(self):
@@ -60,6 +66,12 @@ class TestComputeMethods(unittest.TestCase):
 		self.assertEqual(c.factorial(4), 24)
 		self.assertEqual(c.factorial(5), 120)
 		self.assertEqual(c.factorial(9), 362880)
+
+	def test_count_leading_zeros(self):
+		self.assertEqual(c.count_leading_zeros(1,1000), 2)
+		self.assertEqual(c.count_leading_zeros(1,100), 1)
+		self.assertEqual(c.count_leading_zeros(1,c.factorial(1200)), 3175)
+		self.assertEqual(c.count_leading_zeros(18099969098565397826764800000,6658606584104736522240000000), 0)
 
 	def test_reduce_fraction(self):
 		self.assertEqual(c.reduce_fraction(2, 6), {"numerator":1, "denominator":3})

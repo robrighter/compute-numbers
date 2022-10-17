@@ -20,20 +20,7 @@ class Compute:
                 return {"is_repeating": False }
             else:
                 return {"is_repeating": True, "max_nonrepeat": max(power_of_2,power_of_5), "max_repeat": int(reduced['denominator']-1) } 
-    
-    def check_for_repeat(self, ret):
-        sp = ret.split(".")
-        if len(sp) == 0:
-            return ""
-        s = sp[1]
-        if len(s.replace('0','')) == 0:
-            return ""
-        s1 = s[0:int(len(s)/2)]
-        s2 = s[int(len(s)/2):len(s)]
-        if (s1 == s2):
-            return s1
-        else:
-            return ""
+
 
     def reduce_fraction(self, numerator, denominator):
         n=int(numerator)
@@ -76,6 +63,26 @@ class Compute:
             ret=""
         yield("\n")
 
+
+    def count_leading_zeros(self, numerator, denominator):
+        n=int(numerator)
+        d=int(denominator)
+        gen = self.divide_generator(n,d)
+        found_decimal = False
+        counter = 0
+        while True:
+            value = next(gen)
+            if value == "\n":
+                return counter
+            
+            if found_decimal:
+                if value == "0":
+                    counter = counter + 1
+                else:
+                    return counter
+            else:
+                if value == ".":
+                    found_decimal = True
 
     def divide(self, numerator, denominator):
         reduced = self.reduce_fraction(numerator, denominator)
