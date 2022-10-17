@@ -1,5 +1,6 @@
 class Compute:
-    
+    #todo: Write a function that can calculate the accuracy of iteration n (Calculate the n+1 term and count the leading zeros
+    #todo: Make an option for the divide function that generates digits up to a given number of decimal places ignoring repeats
     
     def determine_if_repeating_fraction(self, numerator, denominator):
             reduced = self.reduce_fraction(numerator, denominator)
@@ -38,15 +39,44 @@ class Compute:
         n=int(numerator)
         d=int(denominator)
         i=2
-        while( (i<=n) and (i<=d) ):
+        min_term = min(n,d)
+        while( i<=(min_term) ):
             if( (n%i)==0 and (d%i)==0 ):
                 n = (n/i)
                 d = (d/i)
                 i=2
             else:
-                i=i+1
+                if(i==2):
+                    i=i+1
+                else:
+                    i=i+2
+                if(i%33333333 == 0):
+                    pass
+                    #print(i)
+                    #print(min_term/i)
         return {"numerator":int(n), "denominator":int(d)} 
     
+    def divide_generator(self, numerator, denominator):
+        n=int(numerator)
+        d=int(denominator)
+        remainder=int(n)
+        ret=""
+        first=True
+        while (remainder > 0):
+            result = int(remainder/d)
+            ret = ret+str(result)
+            remainder = remainder - (result*d)
+            if first:
+                if remainder != 0:
+                    ret=ret+"."
+                first=False
+            remainder=remainder*10
+            for i in range(0, len(ret)):
+                yield(str(ret[i]))
+            ret=""
+        yield("\n")
+
+
     def divide(self, numerator, denominator):
         reduced = self.reduce_fraction(numerator, denominator)
         n=reduced['numerator']
@@ -57,12 +87,9 @@ class Compute:
         first=True
         i=0
         while (remainder > 0):
-            #print(remainder)
-            #print(ret)
             result = int(remainder/d)
             ret = ret+str(result)
             remainder = remainder - (result*d)
-            #print(remainder)
             if first:
                 if remainder != 0:
                     ret=ret+"."
@@ -85,13 +112,13 @@ class Compute:
     def e(self):
         numerator = int(2)
         denominator = int(1)
-        for i in range(2, 5):
+        for i in range(2, 10):
+            print('here '+str(i))
             fact = self.factorial(i)
             next_denominator = fact * denominator
             next_numerator = (numerator * fact) + (denominator * 1)
             numerator = next_numerator
             denominator = next_denominator
-            print(i)
         print(str(numerator) + " / " + str(denominator) )
         return self.divide(numerator, denominator)
             
