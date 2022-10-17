@@ -84,30 +84,6 @@ class Compute:
                 if value == ".":
                     found_decimal = True
 
-    def divide(self, numerator, denominator):
-        reduced = self.reduce_fraction(numerator, denominator)
-        n=reduced['numerator']
-        d=reduced['denominator']
-        is_repeating = self.determine_if_repeating_fraction(n, d)
-        remainder=int(n)
-        ret=""
-        first=True
-        i=0
-        while (remainder > 0):
-            result = int(remainder/d)
-            ret = ret+str(result)
-            remainder = remainder - (result*d)
-            if first:
-                if remainder != 0:
-                    ret=ret+"."
-                first=False
-            else:
-                if is_repeating['is_repeating']:
-                    i=i+1
-                    if( (is_repeating['max_nonrepeat']+is_repeating['max_repeat']) < i):
-                        return { 'repeat': True, 'value': ret, 'max_nonrepeat': is_repeating['max_nonrepeat'],'max_repeat': is_repeating['max_repeat'] }
-            remainder=remainder*10
-        return { 'repeat': False, 'value': ret }
 
     def factorial(self, n):
         ret = int(1);
@@ -116,10 +92,10 @@ class Compute:
             n = n - 1
         return ret
 
-    def e(self):
-        numerator = int(2)
+    def e_partial_sum(self, n):
+        numerator = int(1)
         denominator = int(1)
-        for i in range(2, 10):
+        for i in range(0, n):
             print('here '+str(i))
             fact = self.factorial(i)
             next_denominator = fact * denominator
