@@ -7,6 +7,7 @@ c = Compute()
 
 n=7000
 
+
 def create_number_file_generator(thefile):
 	while 1:
 		char = thefile.read(1)
@@ -21,9 +22,16 @@ def test_e_partial_sum(n):
 	filegen = create_number_file_generator(efile)
 	print("\nCalculating and verifing digits...")
 	for i in range(0, 23877):
-		self.assertEqual(str(next(filegen)), next(gen))
+		if(str(next(filegen)) != next(gen)):
+			print("\n")
+			print("############# NOT SUCCESSFUL ########################")
+			print("      Found Mismatched digit at " + str(i) )
+			print("#####################################################")
+			break
 		if(i%100 == 0):
 			print(str(i)+", ",end='')
+		if(i%1000 == 0):
+			print("\n")
 	gen.close()
 	efile.close()
 	print('\n')

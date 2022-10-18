@@ -98,6 +98,8 @@ class Compute:
         print("Adding Rational Terms ...")
         for i in range(2, n):
             print(str(i)+", ",end='')
+            if(i%10 == 0):
+                print("\n")
             fact = self.factorial(i)
             next_denominator = fact * denominator
             next_numerator = (numerator * fact) + (denominator * 1)
