@@ -37,10 +37,6 @@ class Compute:
                     i=i+1
                 else:
                     i=i+2
-                if(i%33333333 == 0):
-                    pass
-                    #print(i)
-                    #print(min_term/i)
         return {"numerator":int(n), "denominator":int(d)} 
     
     def divide_generator(self, numerator, denominator):
@@ -93,16 +89,20 @@ class Compute:
         return ret
 
     def e_partial_sum(self, n):
-        numerator = int(1)
+        if(n == 0):
+            return 1
+        if(n == 1):
+            return 1
+        numerator = int(2)
         denominator = int(1)
-        for i in range(0, n):
-            print('here '+str(i))
+        print("Adding Rational Terms ...")
+        for i in range(2, n):
+            print(str(i)+", ",end='')
             fact = self.factorial(i)
             next_denominator = fact * denominator
             next_numerator = (numerator * fact) + (denominator * 1)
             numerator = next_numerator
             denominator = next_denominator
-        print(str(numerator) + " / " + str(denominator) )
-        return self.divide(numerator, denominator)
+        return self.divide_generator(numerator, denominator)
             
         

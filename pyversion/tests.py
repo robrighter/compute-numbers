@@ -3,6 +3,15 @@ from compute.exact import Compute
 import unittest
 c = Compute()
 
+
+def create_number_file_generator(thefile):
+	while 1:
+		char = thefile.read(1)
+		if not char:
+			break
+		if char != '\n':
+			yield(str(char))
+
 class TestComputeMethods(unittest.TestCase):
 
 	def test_divide_generator(self):
@@ -61,6 +70,7 @@ class TestComputeMethods(unittest.TestCase):
 		self.assertEqual(c.count_leading_zeros(1,1000), 2)
 		self.assertEqual(c.count_leading_zeros(1,100), 1)
 		self.assertEqual(c.count_leading_zeros(1,c.factorial(1200)), 3175)
+		self.assertEqual(c.count_leading_zeros(1,c.factorial(1000)), 2567)
 		self.assertEqual(c.count_leading_zeros(18099969098565397826764800000,6658606584104736522240000000), 0)
 
 	def test_reduce_fraction(self):
@@ -69,7 +79,6 @@ class TestComputeMethods(unittest.TestCase):
 		self.assertEqual(c.reduce_fraction(8, 4), {"numerator":2, "denominator":1})
 		self.assertEqual(c.reduce_fraction(14, 49), {"numerator":2, "denominator":7})
 		self.assertEqual(c.reduce_fraction(8, 24), {"numerator":1, "denominator":3})
-		#self.assertEqual(c.reduce_fraction(18099969098565397826764800000,6658606584104736522240000000), {"numerator":1, "denominator":3})
 	
 	def test_determine_if_repeating_fraction(self):
 		self.assertEqual(c.determine_if_repeating_fraction(1,3), {"is_repeating": True, "max_nonrepeat": 0, "max_repeat": 2 })
@@ -77,17 +86,15 @@ class TestComputeMethods(unittest.TestCase):
 		self.assertEqual(c.determine_if_repeating_fraction(780,288), {"is_repeating": True, "max_nonrepeat": 3, "max_repeat": 23 })
 		self.assertEqual(c.determine_if_repeating_fraction(1,2323), {"is_repeating": True, "max_nonrepeat": 0, "max_repeat": 2322 })	
 		
-	def test_e(self):
-		pass
-		#s= c.e()
-		#self.assertEqual(str(s), "2.7182818284590452353602874713526624977572470936999595749669676277")
+	def test_e_partial_sum(self):
+		gen = c.e_partial_sum(1000)
+		efile = open('../data/e-2-million.txt', 'r')
+		filegen = create_number_file_generator(efile)
+		for i in range(0, 2567):
+			self.assertEqual(str(next(filegen)), next(gen))
+		gen.close()
+		efile.close()
+		
 
-#2 1 = 5 1
-#1 2   2 6
 if __name__ == '__main__':
     unittest.main()
-	#value = c.divide(780,288)
-	#print("Value is: "+ value['value'])
-	#if(value['repeat']):
-	#	print("Decimal repeats with value: "+value['repeat_value'])
-	#print('\n')
