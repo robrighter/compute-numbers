@@ -5,7 +5,12 @@ from compute.exact import Compute
 
 c = Compute()
 
-n=7000
+n=10000
+
+#calcuate the digit goal from n
+digit_goal= c.count_leading_zeros(1,c.factorial(n))
+print("Calculating e to "+str(digit_goal)+" decimal places.")
+
 
 
 def create_number_file_generator(thefile):
@@ -16,17 +21,26 @@ def create_number_file_generator(thefile):
 		if char != '\n':
 			yield(str(char))
 
-def test_e_partial_sum(n):
+def print_success_or_fail(was_successful, digit):
+	print("\n")
+	print("########################################################")
+	if(was_successful):
+		print("      SUCCESS! Computed e to digit " + str(digit) )
+	else:
+		print("      FAILURE! Found Mismatched digit at " + str(digit) )
+	print("########################################################")
+	print("\n")
+
+def test_e_partial_sum(n, digit):
 	gen = c.e_partial_sum(n)
 	efile = open('../data/e-2-million.txt', 'r')
 	filegen = create_number_file_generator(efile)
 	print("\nCalculating and verifing digits...")
-	for i in range(0, 23877):
+	success = True
+	for i in range(0, digit):
 		if(str(next(filegen)) != next(gen)):
-			print("\n")
-			print("############# NOT SUCCESSFUL ########################")
-			print("      Found Mismatched digit at " + str(i) )
-			print("#####################################################")
+			success = False
+			print_success_or_fail(False, i)
 			break
 		if(i%100 == 0):
 			print(str(i)+", ",end='')
@@ -34,7 +48,8 @@ def test_e_partial_sum(n):
 			print("\n")
 	gen.close()
 	efile.close()
-	print('\n')
+	if( success ):
+		print_success_or_fail(True, digit)
 		
-test_e_partial_sum(n)
+test_e_partial_sum(n, digit_goal)
 
