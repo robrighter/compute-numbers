@@ -5,10 +5,11 @@ from compute.exact import Compute
 
 c = Compute()
 
-n=10000
+n=100000
+
 
 #calcuate the digit goal from n
-digit_goal= c.count_leading_zeros(1,c.factorial(n))
+digit_goal= c.count_leading_zeros(1,c.factorial(n))-100
 print("Calculating e to "+str(digit_goal)+" decimal places.")
 
 
@@ -32,7 +33,7 @@ def print_success_or_fail(was_successful, digit):
 	print("\n")
 
 def test_e_partial_sum(n, digit):
-	gen = c.e_partial_sum(n)
+	gen = c.e_partial_sum_v2(n)
 	efile = open('../data/e-2-million.txt', 'r')
 	filegen = create_number_file_generator(efile)
 	print("\nCalculating and verifing digits...")

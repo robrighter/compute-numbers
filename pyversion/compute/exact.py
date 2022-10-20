@@ -21,7 +21,7 @@ class Compute:
             else:
                 return {"is_repeating": True, "max_nonrepeat": max(power_of_2,power_of_5), "max_repeat": int(reduced['denominator']-1) } 
 
-
+        
     def reduce_fraction(self, numerator, denominator):
         n=int(numerator)
         d=int(denominator)
@@ -46,7 +46,7 @@ class Compute:
         ret=""
         first=True
         while (remainder > 0):
-            result = int(remainder/d)
+            result = remainder//d
             ret = ret+str(result)
             remainder = remainder - (result*d)
             if first:
@@ -106,5 +106,34 @@ class Compute:
             numerator = next_numerator
             denominator = next_denominator
         return self.divide_generator(numerator, denominator)
-            
+    
+    def add_rational(self, r1, r2):
+        n=(r1[0]*r2[1])+(r2[0]*r1[1])
+        return (int(n), int(r1[1]*r2[1]))
+    
+    def e_partial_sum_continuing_fraction(self, n):
+        ret = (3,1)
+        i=n-1
+        while(i>1):
+            ret = self.add_rational( (1,1), (ret[0],ret[1]*i) )
+            i=i-1
+        return ret
         
+    def e_partial_sum_v2(self, n):
+        t = self.e_partial_sum_continuing_fraction(n)
+        dgen = self.divide_generator(t[0], t[1])
+        #since the continuing fraction gives e-1 lets simulate adding in the 1
+        yield("2")
+        next(dgen)
+        #now continue as normal
+        while True:
+            yield(next(dgen))
+            
+    def e_recusive(self, n, i=2):
+        if(i == n):
+            return (3,1)
+        else:
+            #1+ (1/i)*self.e_recusive(n,i+1)
+            tup = self.e_recusive(n,i+1)
+            return self.add_rational((1,1), (tup[0],tup[1]*i) )
+    
