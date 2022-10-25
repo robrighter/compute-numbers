@@ -133,7 +133,7 @@ class Compute:
         if(i == n):
             return (3,1)
         else:
-            #1+ (1/i)*self.e_recusive(n,i+1)
+            #a more readable version of below is 1+ (1/i)*self.e_recusive(n,i+1)
             tup = self.e_recusive(n,i+1)
             return self.add_rational((1,1), (tup[0],tup[1]*i) )
     

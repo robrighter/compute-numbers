@@ -5,7 +5,7 @@ from compute.exact import Compute
 
 c = Compute()
 
-n=100000
+n=1000000
 
 
 #calcuate the digit goal from n
